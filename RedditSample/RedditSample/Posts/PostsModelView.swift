@@ -46,7 +46,7 @@ class PostsModelView {
     }
     
     func start() {
-        SimpleWebService.shared.getTopPosts(forPage: 1) { (isSuccess, result) in
+        SimpleWebService.shared.getTopPosts() { (isSuccess, result) in
             if isSuccess && result != nil {
                 self.posts.append(contentsOf: result!)
             }

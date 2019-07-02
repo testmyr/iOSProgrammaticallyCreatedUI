@@ -16,21 +16,29 @@ class SimpleWebService {
     private var dataTasksOfThumbnails : [URLSessionDataTask] = []
     private let queue = DispatchQueue(label: "Serial queue for the dataTasksOfThumbnails accessing")
     
-    let pageSize = 10
+    private let pageSize = 10
+    private var nextPageId: String?
     
     static let shared = SimpleWebService()
     private init() {
     }
     
-    func getTopPosts(forPage page: Int, withAftermathClosure aftermathClosure: @escaping (Bool, [Post]?) -> Void) {
+    func resetPaging() {
+        nextPageId = nil
+    }
+    
+    func getTopPosts(withAftermathClosure aftermathClosure: @escaping (Bool, [Post]?) -> Void) {
         let topPostsUrlString = baseUrl + urlSuffixTopPosts
         var url = URLComponents(string: topPostsUrlString)!
         
         url.queryItems = [
             URLQueryItem(name: "t", value: "all"),
             URLQueryItem(name: "limit", value: String(pageSize))
-            //URLQueryItem(name: "after", value: String(page))
         ]
+        if let nextPageId = nextPageId {
+            url.queryItems?.append(URLQueryItem(name: "after", value: String(nextPageId)))
+            
+        }
         guard let finalUrl = url.url else {return}
         let task = URLSession.shared.dataTask(with: finalUrl) { (data, response, error) in
             var success = false
@@ -48,12 +56,16 @@ class SimpleWebService {
                 guard let jsonRootDictionary = jsonResponse as? [String: Any] else {
                     return
                 }
-                guard let jsonArray = jsonRootDictionary["results"] as? [[String: Any]] else {
+                guard let jsonDataDictionary = jsonRootDictionary["data"] as? [String: Any] else {
                     return
                 }
+                guard let jsonArray = jsonDataDictionary["children"] as? [[String: Any]] else {
+                    return
+                }
+                self.nextPageId = jsonDataDictionary["after"] as? String
                 var model = [Post]()
                 model = jsonArray.compactMap{ (dictionary) in
-                    return Post(dictionary)
+                    return Post(dictionary["data"] as? [String: Any])
                 }
                 success = true
                 aftermathClosure(true, model)
