@@ -46,7 +46,7 @@ class PostsModelView {
     }
     
     func start() {
-        SimpleWebService.shared.getTopPosts() { (isSuccess, result) in
+        SimpleWebService.shared.getFirstTopPostsPage() { (isSuccess, result) in
             if isSuccess && result != nil {
                 self.posts.append(contentsOf: result!)
                 self.viewDelegate?.updateAllRows()
@@ -69,8 +69,7 @@ extension PostsModelView: PostsViewModelProtocol {
     }
     
     func refreshData() {
-        SimpleWebService.shared.resetPaging()
-        SimpleWebService.shared.getTopPosts() { (isSuccess, result) in
+        SimpleWebService.shared.getFirstTopPostsPage() { (isSuccess, result) in
             if isSuccess && result != nil {
                 self.posts = result!
                 self.viewDelegate?.updateAllRows()

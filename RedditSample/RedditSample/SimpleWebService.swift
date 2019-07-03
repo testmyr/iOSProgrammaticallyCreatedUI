@@ -23,11 +23,12 @@ class SimpleWebService {
     private init() {
     }
     
-    func resetPaging() {
+    func getFirstTopPostsPage(withAftermathClosure aftermathClosure: @escaping (Bool, [Post]?) -> Void) {
         nextPageId = nil
+        getNextTopPostsPage(withAftermathClosure: aftermathClosure)
     }
     
-    func getTopPosts(withAftermathClosure aftermathClosure: @escaping (Bool, [Post]?) -> Void) {
+    func getNextTopPostsPage(withAftermathClosure aftermathClosure: @escaping (Bool, [Post]?) -> Void) {
         let topPostsUrlString = baseUrl + urlSuffixTopPosts
         var url = URLComponents(string: topPostsUrlString)!
         
