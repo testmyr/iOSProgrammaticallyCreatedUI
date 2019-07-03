@@ -37,6 +37,7 @@ class PostsVC: UIViewController {
     
     private func setUpSubviews() {
         tblViewPosts = UITableView()
+        tblViewPosts.backgroundColor = .black
         tblViewPosts.delegate = self
         tblViewPosts.dataSource = self
         self.view.addSubview(tblViewPosts)
@@ -48,6 +49,8 @@ class PostsVC: UIViewController {
         tblViewPosts.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         tblViewPosts.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        refreshControl.backgroundColor = .darkGray
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tblViewPosts.addSubview(refreshControl)
     }
