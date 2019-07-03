@@ -8,12 +8,14 @@
 
 import Foundation
 
-struct Post {
+class Post {
     let author: String?
     let timeCreated: Date?
     let title: String?
     let thumbnailUrl: URL?
     let numberOfComments: Int?
+    
+    var isRead = false
     
     init?(_ dictionary: [String: Any]?) {
         if let dataDic = dictionary {

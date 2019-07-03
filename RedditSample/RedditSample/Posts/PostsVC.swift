@@ -75,6 +75,9 @@ extension PostsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell {
+            cell.didSelect()
+        }
         viewModel.didSelectRow(indexPath.row)
     }
     

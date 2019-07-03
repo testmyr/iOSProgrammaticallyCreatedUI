@@ -12,6 +12,7 @@ class PostTableViewCell: UITableViewCell {
     
     var post : Post? {
         didSet {
+            imgReadStatus.isHidden = post?.isRead ?? false
             lblAuthor.text = post?.author
             if let timeCreated = post?.timeCreated {
                 let form = DateComponentsFormatter()
@@ -127,7 +128,10 @@ class PostTableViewCell: UITableViewCell {
         
     }
     
-    
+    func didSelect() {
+        post?.isRead = true
+        imgReadStatus.isHidden = true
+    }
     
     
     override func awakeFromNib() {
