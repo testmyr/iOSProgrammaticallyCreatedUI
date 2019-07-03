@@ -13,7 +13,15 @@ class PostTableViewCell: UITableViewCell {
     var post : Post? {
         didSet {
             lblAuthor.text = post?.author
-            lblTime.text = "time"
+            if let timeCreated = post?.timeCreated {
+                let form = DateComponentsFormatter()
+                form.maximumUnitCount = 2
+                form.unitsStyle = .full
+                form.allowedUnits = [.year, .month, .day, .hour]
+                if let timeSinceStringValue = form.string(from: timeCreated, to: Date()) {
+                    lblTime.text = timeSinceStringValue + " ago"
+                }
+            }
             if let numCom = post?.numberOfComments {
                 lblNumberOfCommentsValue.text = String(numCom)
             }
@@ -25,6 +33,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     private let paddingLeft = CGFloat(5)
+    private let paddingRight = CGFloat(5)
 
     private let imgReadStatus : UIImageView = {
         let imgView = UIImageView()
@@ -45,7 +54,7 @@ class PostTableViewCell: UITableViewCell {
     private var lblTime: UILabel! = {
         let label = UILabel()
         label.textColor = .white
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -105,7 +114,8 @@ class PostTableViewCell: UITableViewCell {
         lblAuthor.lineBreakMode = .byTruncatingTail
         
         addSubview(lblTime)
-        lblTime.leadingAnchor.constraint(equalTo: lblAuthor.trailingAnchor, constant: 5).isActive = true
+        lblTime.leadingAnchor.constraint(equalTo: lblAuthor.trailingAnchor, constant: 10).isActive = true
+        lblTime.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -paddingRight).isActive = true
         lblTime.centerYAnchor.constraint(equalTo: lblAuthor.centerYAnchor).isActive = true
         lblTime.setContentCompressionResistancePriority(.required, for: .horizontal)
 

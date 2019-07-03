@@ -10,6 +10,7 @@ import Foundation
 
 struct Post {
     let author: String?
+    let timeCreated: Date?
     let title: String?
     let thumbnailUrl: URL?
     let numberOfComments: Int?
@@ -23,11 +24,14 @@ struct Post {
             } else {
                 thumbnailUrl = nil
             }
+            if let createdUtcTimestamp = dataDic["created_utc"] as? Int {
+                timeCreated = Date(timeIntervalSince1970: TimeInterval(createdUtcTimestamp))
+            } else {
+                timeCreated = nil
+            }
             numberOfComments = dataDic["num_comments"] as? Int
         } else {
             return nil
         }
-        print(self)
-        print("------------")
     }
 }
