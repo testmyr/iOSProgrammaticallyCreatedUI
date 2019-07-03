@@ -15,6 +15,7 @@
 		5A72E99722CBDC6E00DEC369 /* PostsModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A72E99622CBDC6E00DEC369 /* PostsModelView.swift */; };
 		5A72E99922CBDDA800DEC369 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A72E99822CBDDA800DEC369 /* Post.swift */; };
 		5A72E99B22CBE22C00DEC369 /* SimpleWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A72E99A22CBE22C00DEC369 /* SimpleWebService.swift */; };
+		5A72E99D22CBFEEA00DEC369 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A72E99C22CBFEEA00DEC369 /* PostTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		5A72E99622CBDC6E00DEC369 /* PostsModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsModelView.swift; sourceTree = "<group>"; };
 		5A72E99822CBDDA800DEC369 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		5A72E99A22CBE22C00DEC369 /* SimpleWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleWebService.swift; sourceTree = "<group>"; };
+		5A72E99C22CBFEEA00DEC369 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				5A72E99322CBDB1800DEC369 /* PostsVC.swift */,
 				5A72E99622CBDC6E00DEC369 /* PostsModelView.swift */,
 				5A72E99822CBDDA800DEC369 /* Post.swift */,
+				5A72E99C22CBFEEA00DEC369 /* PostTableViewCell.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A72E99D22CBFEEA00DEC369 /* PostTableViewCell.swift in Sources */,
 				5A72E99722CBDC6E00DEC369 /* PostsModelView.swift in Sources */,
 				5A72E98022CBD91000DEC369 /* AppDelegate.swift in Sources */,
 				5A72E99B22CBE22C00DEC369 /* SimpleWebService.swift in Sources */,
@@ -304,7 +308,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = PostsViewModelCoordinatorDelegate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -322,7 +326,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = PostsViewModelCoordinatorDelegate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -26,7 +26,7 @@ protocol PostsViewModelProtocol {
 }
 
 protocol PostsViewModelViewDelegate: AnyObject {
-    func updateView()
+    func updateAllRows()
     func updateRows(with: [IndexPath])
 }
 
@@ -49,6 +49,7 @@ class PostsModelView {
         SimpleWebService.shared.getTopPosts() { (isSuccess, result) in
             if isSuccess && result != nil {
                 self.posts.append(contentsOf: result!)
+                self.viewDelegate?.updateAllRows()
             }
         }
     }

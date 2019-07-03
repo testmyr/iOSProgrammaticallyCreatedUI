@@ -14,6 +14,7 @@ class Coordinator {
     
     lazy var rootNavigationController: UINavigationController = {
         let postsVC: PostsVC = PostsVC(viewModel: postsViewModel)
+        postsViewModel.viewDelegate = postsVC
         return UINavigationController(rootViewController: postsVC)
     }()
     lazy var postsViewModel: PostsModelView = {

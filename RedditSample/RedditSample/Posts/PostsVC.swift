@@ -10,12 +10,10 @@ import UIKit
 
 class PostsVC: UIViewController {
     
-    private var viewModel: PostsViewModelProtocol! {
-        didSet {
-            viewModel.viewDelegate = self
-        }
-    }
+    var tblViewPosts: UITableView!
+    let cellId = "PostTableViewCell"
     
+    fileprivate var viewModel: PostsViewModelProtocol!
     
     init(viewModel: PostsViewModelProtocol) {
         super.init(nibName: nil, bundle: nil)
@@ -34,20 +32,66 @@ class PostsVC: UIViewController {
         super.viewDidLoad()
         self.title = "Reddit Posts"
         self.view.backgroundColor = UIColor.black
-
-        // Do any additional setup after loading the view.
+        setUpSubviews()
     }
+    
+    private func setUpSubviews() {
+        tblViewPosts = UITableView()
+        tblViewPosts.delegate = self
+        tblViewPosts.dataSource = self
+        self.view.addSubview(tblViewPosts)
+        tblViewPosts.rowHeight = UITableView.automaticDimension
+        tblViewPosts.register(PostTableViewCell.self, forCellReuseIdentifier: cellId)
+        tblViewPosts.translatesAutoresizingMaskIntoConstraints = false
+        tblViewPosts.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        tblViewPosts.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        tblViewPosts.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        tblViewPosts.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+    }
+}
 
+extension PostsVC: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.numberOfPosts()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PostTableViewCell
+        cell.post = viewModel.postFor(rowAtIndex: indexPath.row)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelectRow(indexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        var cellHeight: CGFloat
+        let height = tableView.frame.height
+        let width = tableView.frame.width
+        let coefficient: CGFloat = 0.3
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if width > height {
+                cellHeight = height * coefficient
+            } else {
+                cellHeight = width * coefficient * CGFloat(1.2)
+            }
+        } else {
+            return 50//to do
+        }
+        return cellHeight
+    }
 }
 
 extension PostsVC: PostsViewModelViewDelegate {
-    func updateView() {
-        
+    func updateAllRows() {
+        DispatchQueue.main.async {
+            self.tblViewPosts.reloadData()
+        }
     }
     
     func updateRows(with: [IndexPath]) {
         
     }
-    
-    
 }
