@@ -47,6 +47,15 @@ class PostsVC: UIViewController {
         tblViewPosts.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         tblViewPosts.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         tblViewPosts.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tblViewPosts.addSubview(refreshControl)
+    }
+    
+    @objc private func refresh(refreshControl: UIRefreshControl) {
+        viewModel.refreshData()
+        refreshControl.endRefreshing()
+        
     }
 }
 

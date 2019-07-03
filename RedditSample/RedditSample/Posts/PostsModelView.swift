@@ -69,7 +69,13 @@ extension PostsModelView: PostsViewModelProtocol {
     }
     
     func refreshData() {
-        
+        SimpleWebService.shared.resetPaging()
+        SimpleWebService.shared.getTopPosts() { (isSuccess, result) in
+            if isSuccess && result != nil {
+                self.posts = result!
+                self.viewDelegate?.updateAllRows()
+            }
+        }
     }
     
     func fetchThumbnail(forIndex index: Int) {
