@@ -75,6 +75,7 @@ extension PostsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //temporary solution. it then must be called by a DetaliedViewModel through the viewModel in case of successful load of the detailed view data
         if let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell {
             cell.didSelect()
         }
