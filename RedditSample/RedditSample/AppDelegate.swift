@@ -20,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor.black
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        UINavigationBar.appearance().accessibilityIgnoresInvertColors = true
+        UIView.appearance().accessibilityIgnoresInvertColors = true
+        UILabel.appearance().accessibilityIgnoresInvertColors = true
+        UIButton.appearance().accessibilityIgnoresInvertColors = true
         
         appCoordinator = Coordinator(window: window)
         appCoordinator.start()
